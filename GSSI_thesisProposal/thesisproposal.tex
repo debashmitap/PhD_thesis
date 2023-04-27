@@ -1,0 +1,393 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+
+\documentclass[11pt, a4paper, oneside]{Thesis} % Paper size, default font size and one-sided paper
+
+\graphicspath{{./Pictures/}} % Specifies the directory where pictures are stored
+
+\usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\hypersetup{urlcolor=black, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+\title{\ttitle} % Defines the thesis title - don't touch this
+
+\usepackage{tikz}
+\usepackage{setspace}
+
+\definecolor{OrangeGSSI}{RGB}{237,113,45}
+\definecolor{blue}{RGB}{25,25,112}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT VARIABLES
+%	Fill in the lines below to update the thesis template
+%	If you wish to cite each of the variables defined below, look at the
+%	section above for the citation command e.g. \examiner{} below is
+%	defined as \examname above so you cite it as \examname
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Adaptive Influence Maximization: Bounding Adaptivity Gaps and Beyond} % Your thesis title - this is used in the title and abstract
+%-------------------------------------------------  
+\supervisor{Prof. Gianlorenzo \textsc{D'Angelo}\\ Dr. Cosimo \textsc{Vinci}}% You supervisor's name - this is used in the title page
+%-------------------------------------------------   
+
+
+
+\examiner{Dr. Name  \textsc{Surname}} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
+%-------------------------------------------------   
+\degree{Doctor of Philosophy} % Your degree name - this is currently used in the title page and abstract
+%-------------------------------------------------   
+\authors{Debashmita \textsc{Poddar}} % Your name - this is used in the title page and abstract
+%-------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	TYPESETTING
+%----------------------------------------------------------------------------------------
+%\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{pifont}
+\usepackage{xcolor,colortbl}
+\usepackage{flushend}
+\usepackage[normalem]{ulem} % for \sout
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tabularx,booktabs,caption,ragged2e}
+\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
+\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
+\newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+
+\renewcommand{\ttdefault}{cmr}
+
+\newcommand{\assignedto}[1]{\textcolor{red}{\ding{46}~{\sf Assigned to:}~#1}\\}
+\newcommand{\todo}[1]{\textcolor{blue}{\ding{46}{\sf}~#1}}
+
+\newcommand{\sugg}[1]{\textcolor{orange}{#1}}
+%----------------------------------------------------------------------------------------
+%	End of TYPESETTING
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\setstretch{1.3} % Line spacing of 1.3
+
+% Define the page headers using the FancyHdr package and set up for one-sided printing
+\fancyhead{} % Clears all page headers and footers
+\rhead{\thepage} % Sets the right side header to show the page number
+\lhead{} % Clears the left side page header
+
+% \pagestyle{fancy} % Finally, use the "fancy" page style to implement the FancyHdr headers
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % New command to make the lines in the title page
+
+% PDF meta-data
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\subjectname}
+\hypersetup{pdfauthor=\authornames}
+\hypersetup{pdfkeywords=\keywordnames}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=0.4\textwidth]{./figures/logo_GSSI}~\\[1cm]
+\textsc{\Large PhD Thesis}\\[0.5cm] % Thesis type
+
+\HRule \\[0.1cm] % Horizontal line
+{\huge \bfseries Adaptive Influence Maximization: \\[0.3cm] Bounding Adaptivity Gaps and Beyond}\\[0.3cm] % Thesis title
+\HRule \\[0.9cm] % Horizontal line
+
+{\Large \textsc{PhD Program in Computer Science: XXXIV cycle}}\\[2cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\bigskip \authornames \\
+\href{mailto:debashmita.poddar@gssi.it}{debashmita.poddar@gssi.it}
+%\href{http://www.johnsmith.com}{\authornames} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{flushright} \large
+\emph{Supervisors:} \\
+%\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\bigskip \supname \\
+\href{mailto:gianlorenzo.dangelo@gssi.it}{gianlorenzo.dangelo@gssi.it\\ cosimo.vinci@unisalento.it} \\
+%\bigskip \bigskip
+%\emph{Internal advisor:} \\
+%\bigskip \examname \\
+%\href{mailto:name.surname@gssi.infn.it}{name.surname@gssi.infn.it}
+\end{flushright}
+\end{minipage}\\[2.2cm]
+ 
+%\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+%\textit{in the}\\[0.4cm]
+%\groupname\\\deptname\\[2cm] % Research group name and department name
+
+
+{\large \today}\\[2.2cm] % Date
+
+\univname \\
+\addressnames
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\afterpage{\blankpage}
+\end{titlepage}
+
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%	Your institution may give you a different text to place here
+%----------------------------------------------------------------------------------------
+
+%\Declaration{
+%
+%\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+%
+%I, \authornames, declare that this thesis titled, '\ttitle' and the work presented in it are my own. I confirm that:
+%
+%\begin{itemize} 
+%\item[\tiny{$\blacksquare$}] This work was done wholly or mainly while in candidature for a research degree at this University.
+%\item[\tiny{$\blacksquare$}] Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+%\item[\tiny{$\blacksquare$}] Where I have consulted the published work of others, this is always clearly attributed.
+%\item[\tiny{$\blacksquare$}] Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+%\item[\tiny{$\blacksquare$}] I have acknowledged all main sources of help.
+%\item[\tiny{$\blacksquare$}] Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
+%\end{itemize}
+% 
+%Signed:\\
+%\rule[1em]{25em}{0.5pt} % This prints a line for the signature
+% 
+%Date:\\
+%\rule[1em]{25em}{0.5pt} % This prints a line to write the date
+%}
+%
+%\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+%\pagestyle{empty} % No headers or footers for the following pages
+%
+%\null\vfill % Add some space to move the quote down the page a bit
+%
+%\textit{``Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism."}
+%
+%\begin{flushright}
+%Dave Barry
+%\end{flushright}
+%
+%\vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
+%
+%\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+\afterpage{\blankpage}
+
+\addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
+
+\abstract % Add a gap in the Contents, for aesthetics
+
+The \textit{influence maximization (IM)} problem is a discrete optimization problem [Kempe et al.~\cite{Kempe2003}] of selecting the $k$ most influential nodes in a network, and has ample applications ranging from viral marketing to outbreak detection. The IM problem is as follows: given a budget $k$ and a graph $G$, our goal is to find a seed set $S$ consisting of $k$ nodes of $G$ which maximizes the expected number of nodes influenced by $S$, according to some model of influence diffusion. The classic IM problem, which is also referred to as the \textit{non-adaptive IM}, selects the seed set $S$ before starting the diffusion process. Therefore, the focus is on the efficiency of the solution.
+
+A few years later, Golovin and Krause~\cite{Golovin2011a} introduced the \textit{adaptive IM (AIM)} to target the efficacy of the problem. In the adaptive setting, selection of the $k$ seed nodes occurs one at a time, such that the $j$-th seed node is selected after observing the actual influence from the previously selected $j-1$ seeds. There are two main feedback models that have been studied: \textit{full-adoption}, where the entire diffusion carried out by a seed node in the previous step is observed, and \textit{myopic}, where only the neighbours of the previously selected seed nodes are considered as a feedback.
+
+While adaptive policies are strictly stronger than non-adaptive ones, the latter are much easier to design and implement. Golovin and Krause~\cite{Golovin2011a} proposed a measure called the \textit{adaptivity gap (AG)}, which is the ratio between the adaptive and non-adaptive optima. If the AG is small, we say that the non-adaptive policy provides a good approximation of the adaptive optimum.
+
+In this thesis, we study AG with both feedback models. Under the full adoption feedback, we investigate the upper bound of AG over several graph classes, from in-arborescences to general graphs. We show the first sub-linear upper bound on AG that holds for any graph. 
+Next, we have the experimental part, where we take different network models, such as random, scale-free and real world networks, and draw several comparisons between the adaptive greedy and the non-adaptive greedy algorithms under various network settings and parameters.
+
+Eventually, we move on to the myopic feedback model, which lacks the property of submodularity. To recover from the drawbacks of being non-submodular, an artificial diffusion process is taken into account. We introduce a new technique to bound the AG without using the commonly used approaches, such as multi-linear extensions or random walks. We also study the adaptive greedy algorithm under the new setting and compare it to optimal adaptive policy. Our approach is of independent interest and can be used for further studies related to  different adaptive optimization problems.
+
+
+
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\setstretch{1.3} % Reset the line-spacing to 1.3 for body text (if it has changed)
+
+\acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+
+I thank my supervisors for being a positive influence in both academia and my life in particular. Prof. Gianlorenzo D'Angelo, for being a patient and kind person. Gianlorenzo's pursuit of high standards in research have deeply shaped and impressed me over the years. He has invariably given me feedback on my work in the most benevolent way as possible. 
+Dr. Cosimo Vinci as a forbearing supervisor, for consistently teaching and answering my questions without a speck of annoyance on his face. His unlimited enthusiasm in every aspect has motivated me to stick to this PhD during the bleaker times. Gianlorenzo and Cosimo always checked on my overall health before talking about work, and I am grateful for that.
+
+My parents, for always letting me follow my dreams and being the pillars of strength. \textit{Baba}, you really made me a strong and independent woman to deal with the world through your unusual ways. \textit{Ma}, thank you for educating me to look beyond the appearance and have empathy.
+
+My grandparents, who were amazing, and loved me till their last breath. I give them most of the credits for making me a good human being. There were times when I had to question my moral and their teachings reminded me of who I am. I miss them both, even though I don't talk about it often.
+
+Pritom and Saili for being my only strand of family in Europe. I have spent most of the Christmas holidays in the course of my PhD with them, eating the delectable food Saili made for us. Thank you, brother, for always keeping me entertained, during the stressful periods.
+
+Théo, for truly being my best friend and always believing in me with complete honesty. You have been an incredibly supportive and dedicated \textit{ami} during the last seven and a half years I have known you. \textit{Merci}!
+
+A handful of people at the GSSI whom I call my adulting friends. These people have taken up the baton to teach me a lot of valuable life lessons. My heartfelt thanks to the entire GSSI community and the CS department for doing what they do the best.
+
+Last but not the least, \textit{grazie mille} to the \textit{bella città} of L'Aquila, and the nice people I have encountered during these four years. Waking up to the beautiful view of the mountains definitely did good to my soul and helped me endure the shortcomings. Also, there is no better place than L'Aquila to learn about the Italian bureaucracy. This has been my second challenge, other than research, and there remains to be a lot of open problems which has been verified by many in the same boat as me.
+
+
+
+}
+\clearpage % Start a new page
+
+\afterpage{\blankpage}
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+
+
+\pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
+
+\lhead{\emph{Contents}} % Set the left side page header to "Contents"
+\tableofcontents % Write out the Table of Contents
+
+\lhead{\emph{List of Figures}} % Set the left side page header to "List of Figures"
+\listoffigures % Write out the List of Figures
+
+\lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
+\listoftables % Write out the List of Tables
+
+\afterpage{\blankpage}
+
+%%----------------------------------------------------------------------------------------
+%%	ABBREVIATIONS
+%%----------------------------------------------------------------------------------------
+%\clearpage % Start a new page
+%\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
+%\lhead{\emph{Abbreviations}} % Set the left side page header to "Abbreviations"
+%\listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
+%{
+%\textbf{AMI} & \textbf{A}dvanced \textbf{M}etering \textbf{I}nfrastructure \\
+%\textbf{CPS} & \textbf{C}yber-\textbf{P}hysical \textbf{S}ystems \\
+%\textbf{DoS} & \textbf{D}enial-\textbf{o}f-\textbf{S}ervice \\
+%\textbf{MAC} & \textbf{M}edium \textbf{A}ccess {C}ontrol \\
+%\textbf{MAPE} & \textbf{M}onitor, \textbf{A}nalyse, \textbf{P}lan, \textbf{E}xecute \\
+%\textbf{MCN} & \textbf{M}ulti-hop \textbf{C}ontrol \textbf{N}etwork \\
+%\textbf{MILS} & \textbf{M}ultiple \textbf{I}ndependent \textbf{L}evels of \textbf{S}ecurity/Safety\\
+%\textbf{MRMC} & \textbf{M}arkov \textbf{R}eward \textbf{M}odel \textbf{C}hecker \\
+%\textbf{MTD} & \textbf{M}oving \textbf{T}arget \textbf{D}efence \\
+%\textbf{NICS} & \textbf{N}etworked \textbf{I}ndustrial \textbf{C}ontrol \textbf{S}ystems \\
+%\textbf{OPC} & \textbf{O}bject linking and embedding for \textbf{P}rocess \textbf{C}ontrol \\
+%\textbf{PCS} & \textbf{P}rocess \textbf{C}ontrol \textbf{S}ystems \\
+%\textbf{PLC} & \textbf{P}rogrammable \textbf{L}ogic \textbf{C}ontroller \\
+%\textbf{PRISM} & \textbf{P}robabilistic \textbf{S}ymbolic \textbf{M}odel \textbf{C}hecker \\
+%\textbf{RTU} & \textbf{R}emote \textbf{T}erminal \textbf{U}nit \\
+%\textbf{SCADA} & \textbf{S}upervisory \textbf{C}ontrol \textbf{A}nd \textbf{D}ata \textbf{A}cquisition\\
+%\textbf{SLR} & \textbf{S}ystematic \textbf{L}iterature \textbf{R}eview \\
+%\textbf{SMC} & \textbf{S}tatistical \textbf{M}odel \textbf{C}hecking \\
+%\textbf{VCSE} & \textbf{V}irtual \textbf{C}ontrol \textbf{S}ystem \textbf{E}nvironment \\
+%%\textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
+%}
+
+%----------------------------------------------------------------------------------------
+%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%\clearpage % Start a new page
+%
+%\lhead{\emph{Physical Constants}} % Set the left side page header to "Physical Constants"
+%
+%\listofconstants{lrcl} % Include a list of Physical Constants (a four column table)
+%{
+%Speed of Light & $c$ & $=$ & $2.997\ 924\ 58\times10^{8}\ \mbox{ms}^{-\mbox{s}}$ (exact)\\
+%% Constant Name & Symbol & = & Constant Value (with units) \\
+%}
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+
+%\clearpage % Start a new page
+%
+%\lhead{\emph{Symbols}} % Set the left side page header to "Symbols"
+%
+%\listofnomenclature{lll} % Include a list of Symbols (a three column table)
+%{
+%$a$ & distance & m \\
+%$P$ & power & W (Js$^{-1}$) \\
+%% Symbol & Name & Unit \\
+%
+%& & \\ % Gap to separate the Roman symbols from the Greek
+%
+%$\omega$ & angular frequency & rads$^{-1}$ \\
+%% Symbol & Name & Unit \\
+%}
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\setstretch{1.3} % Return the line spacing back to 1.3
+%
+%\pagestyle{empty} % Page style needs to be empty for this page
+%
+%\dedicatory{For/Dedicated to/To my\ldots} % Dedication text
+%
+%\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{fancy} % Return the page headers back to the "fancy" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+\fancyhead{}
+\rhead{\thepage}
+ \setcounter{page}{1}
+\input{chapters/intro}
+\input{chapters/lit}
+\input{chapters/background} 
+\input{chapters/sota} 
+\input{chapters/proposal} 
+
+\afterpage{\blankpage}
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+%\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+%
+%\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+%% Include the appendices of the thesis as separate files from the Appendices folder
+%% Uncomment the lines as you write the Appendices
+
+%\input{./appendices/appendixA}
+%\input{./Appendices/AppendixB}
+%\input{./Appendices/AppendixC}
+
+%\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+%
+%\backmatter
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\label{Bibliography}
+\lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
+
+\bibliographystyle{unsrtnat} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+
+\bibliography{Bibliography} % The references (bibliography) information are stored in the file named "Bibliography.bib"
+\addcontentsline{toc}{chapter}{Bibliography} 
+\end{document}
