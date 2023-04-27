@@ -1,0 +1,83 @@
+%conclusion
+
+\chapter{Conclusion and Open Problems}\label{chap:proposal}
+
+\fancyhead[L]{\textit{Chapter 5. Conclusion}}
+
+In this thesis, we study the two feedback models of the Adaptive influence maximization problem focusing mainly on independent cascade. The adaptivity gap gives us a performance quantification of an optimal non-adaptive strategy when compared to an optimal adaptive one. The focus of the thesis is to bound the AG for different graph classes, feedbacks, diffusion models and to tighten that bound. Chapter \ref{chap:lit} exhaustively explains the background and problem definitions, along with the necessary literature review related to this thesis.
+
+In this chapter, we conclude the thesis by giving a brief overview on the contents and the results. Section \ref{sec:app} discusses the applications related to the scope of the thesis to further motivate the study of adaptivity gaps and its implications. We move on to discussing the open problems and future directions in Section \ref{sec:prob}. For a more concise idea about the gaps that are still open and needs to be found or tightened, refer to Table \ref{bound}.
+
+
+Chapter \ref{chap:background} of this thesis studies the full adoption feedback under the independent cascade model. Bypassing the requirements of multilinear extension and Poisson process, which are the commonly used techniques to link the non-adaptive spread with the adaptive one \cite{Chen2019}, we instead opt for introducing a hybrid policy and then use it to link the optimal non-adaptive and the adaptive policies. The hybrid adaptive policy ensures that at each step $t$ of the diffusion process, the number of selected seed node is t. Whereas, the non-adaptive policy in \cite{Chen2019} selects $X$ number of seed nodes and evaluates the expected spread on the random variable $X$. However, instead of the total number of selected seeds being equal to $k$, it is $k$ under expectation thus increasing the upper bound of AG for in-arborescences. We use this hybrid technique to improve the upper bound of in-arborescences, and bring it down to 2.31 from 3.16. We move on to give the first results on general graph and bound it to $\lceil n^{1/3}\rceil$, where $n$ is the number of nodes. We also study other graph classes such as the $\alpha$-bounded-degree, upper bounded to $\sqrt{\alpha}+ O(1)$, and $(\beta,\gamma)$-bounded-activation graphs, whose AG is bounded to $\sqrt{\beta}+\frac{1}{1-\gamma}$. In section \ref{full}, we state the open problems related to the results of this chapter.
+The experimental part of is in Section \ref{exp}, where we use synthetic networks and a real world network. The purpose of the experiments is to study the state-of-the-art non-adaptive greedy algorithm called $TIM^+$ and compare it using its adaptive greedy equivalent using a measure called the greedy adaptivity gap. We use different parameters and graph types under the IC and LT models with full-adoption to understand the behaviour of the greedy algorithms. The experimental part, shows that the greedy adaptivity gap is close to 1, thus ensuring the efficiency of $TIM^+$.
+
+
+Chapter \ref{chap:sota} focuses on the myopic model under IC, and its future directions are listed in Section \ref{myo}. Since the myopic feedback model is not adaptive submodular, bounding the AG becomes non-trivial. To recover from the adaptive non-submodularity, we resort to an artificial 2-level diffusion model, which gives a seed node two chances to activate its neighbours. We introduce a new technique to arrive at an improved upper bound for the AG, and omit the use of random walks on optimal decision trees and multilinear extension to relate the non-adaptive and adaptive policies. Instead, by using a simple randomized non-adaptive policy, we relate it with the optimal adaptive policy, and derive the approximation ratio of the non-adaptive greedy algorithm which improved from 0.158 \cite{Peng2019} to 0.316. We also notice an improvement in the adaptivity gap from 4 to 3.164 by extension. By using the same techniques, we also calculate the approximation factor for the adaptive greedy algorithm which is $\approx 0.393$.
+
+
+
+
+
+
+
+    \begin{table} [h!]
+    \centering
+    \caption{Current bounds on AG and GAG for different models and feedback}
+    \begin{adjustbox}{width=1\textwidth}
+    \begin{tabular}{ | c | c | c | }
+    \hline
+    \textbf{Model}& \textbf{Adaptivity Gap}& \textbf{Greedy Adaptivity Gap} \\ [1ex]
+     \hline
+     \hline
+     \begin{tabular}{@{}c@{}}Independent Cascade \\ Full-Adoption\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$e/(e-1)$ \cite{Chen2019} \\ \textbf{Upper:}\begin{tabular}{@{}c@{}}General:$\lceil n^{1/3}\rceil$ \cite{DAngelo} \\ In-arborescence:$2e^2/(e^2-1)$ \cite{DAngelo} \\ Out-arborescence:2 \cite{Chen2019}\\$\alpha$-bounded degree: $\sqrt{\alpha}+ O(1)$ \cite{DAngelo}\end{tabular}\\ 1-D Bipartite: $e/(e-1)$ (tight) \cite{Chen2019}\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$\cite{Chen2019a} \\ \textbf{Upper:}Open\end{tabular}\\ [1ex] \hline
+     \begin{tabular}{@{}c@{}}Independent Cascade \\ Myopic\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$e/(e-1)$ \cite{Peng2019} \\ \textbf{Upper:}$2e/(e-1)$ \cite{DAngeloPV21}\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$ \cite{Chen2019a} \\ \textbf{Upper:}$2e^2/(e-1)^2$ \cite{DAngeloPV21}\end{tabular}\\ [1ex] \hline
+      \begin{tabular}{@{}c@{}}Linear Threshold \\ Full-Adoption\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}Open \\ \textbf{Upper:}Open\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$ \cite{Chen2019a} \\ \textbf{Upper:}Open\end{tabular}\\ [1ex] \hline
+       \begin{tabular}{@{}c@{}}Linear Threshold \\ Myopic\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}Open \\ \textbf{Upper:}Open\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$ \cite{Chen2019a} \\ \textbf{Upper:}Open\end{tabular}\\ [1ex] \hline
+        \begin{tabular}{@{}c@{}}Triggering \\ Full-Adoption\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$\infty$ \cite{Chen2019a} \\ \textbf{Upper:}$\infty$ \cite{Chen2019a}\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$ \cite{Chen2019a} \\ \textbf{Upper:}$\infty$ \cite{Chen2019a} \end{tabular}\\ [1ex] \hline
+         \begin{tabular}{@{}c@{}}Triggering \\ Myopic\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$e/(e-1)$ \cite{Peng2019} \\ \textbf{Upper:}Open\end{tabular}&  \begin{tabular}{@{}c@{}}\textbf{Lower:}$1-(1/e)$ \cite{Chen2019a}\\ \textbf{Upper:}Open\end{tabular}\\ [1ex] \hline
+  
+    \end{tabular}
+    \end{adjustbox}
+      \label{bound}
+    \end{table}
+
+\section{Applications of the Thesis} \label{sec:app}
+\paragraph{In-arborescences.}
+Networks exhibiting hierarchical structures are one of the examples of in-arborescences. Many companies have inter networking as a way of information passing, and these are normally hierarchical networks with the number of terminals depending on the size of network. 
+The entire inter network can be seen as an arborescence, with the root being the top level server, and the leaves being the individual employee terminals. The information propagation is usually bidirectional. One specific case, when an in-arborescence is an essential graph topology to consider is, when a middle tier or even an end terminal connection fails. Introducing uncertainty among the nodes based on their probability of failure makes the model stochastic. The example can be analogous to the problem of sensor placement and detecting failures in them.
+
+Our objective is to maximize the number of activated systems in between, to ensure that there is maximum information propagation to the root, also the detection of failure is reported and handled as early as possible.
+
+
+\paragraph{Adaptive Stochastic Submodular Maximization.}
+Chapter \ref{chap:sota} focuses mainly on the usage of the new technique in case of adaptive influence maximization, however, there are other applications which require analysis of non-adaptive policies with adaptive ones that can be considered under this new setting. As shown in Section~\ref{sec_example}, we believe that our new approach could be efficiently used to analyze non-adaptive greedy algorithms in other adaptive optimization problems.
+
+One application is the stochastic probing problem studied by~\cite{Bradac19,Gupta2016,Gupta2017,gupta13}, which in turn has further sub problems like maximum cardinality matching, path planning for robots, set cover problems~\cite{DBLP:conf/latin/GoemansV06,DBLP:conf/icml/GuilloryB10}. The stochastic probing problem is defined as follows: given an universal set of elements $V$, to know the state of an element $v \in V$, where each $v$ is associated with an independent probability $p_v$ determining the activation probability, we need to probe $v$ in order to reveal if it is active or not. This problem is naturally adaptive because in order to probe the next best element, we look at the feedback generated by the previously probed elements that are now a part of the seed set $S$.
+
+
+
+\section{Discussions and Open problems} \label{sec:prob}
+
+Adaptive seeding is a notoriously challenging problem. Due to the randomness on the edge activation, the problem becomes non-trivial, and bounding the adaptivity gap becomes incredibly tricky. One challenge in the Independent Cascade model with full-adoption feedback is that the feedback generated from two nodes are not independent. This correlated feedback arises due to the propagation overlap from two nodes, which causes a substantial loss in the upper bound of the model. This problem is tackled in Chapter \ref{chap:background}, where we try to lower the upper bound by directly building the connections through defining the marginals on the $t-1$ non-optimal solution. 
+
+Moving to Chapter \ref{chap:sota}, we deal with the non-submodular myopic feedback model under IC. The fact that the model is non-submodular makes it incredibly challenging to bound. We resort to artificial diffusion models which recovers the adaptive submodularity, however we suffer a substantial loss in the upper bound of the adaptivity gap. 
+ 
+\subsection{Full-Adoption Feedback}\label{full}
+
+
+The first problem that is left open by our results is the gap between the constant lower bound provided by \citet{Chen2019} and our upper bound on the adaptivity gap for general graphs.
+Besides trying to lower the upper bound, a possible direction could be that of increasing the lower bound by finding instances with a non constant adaptivity gap. Since the lower bound given in~\cite{Chen2019} holds even when the graph is a directed path, one direction could be to exploit different graph topologies. 
+
+Although in this work we have improved the upper bound on the adaptivity gap of in-arborescence, there is still a gap between the upper and lower bounds, thus another open problem is to close it. It would be also interesting to find better bounds on the adaptivity gap of other graph classes, like e.g. out-arborescences. A further interesting research direction is to study the adaptivity gap of some graph classes modelling real-world networks, both theoretically and experimentally. 
+
+Finally, most of the work on adaptive IM has been done for the independent cascade model, and other diffusion models (e.g., the linear threshold and the triggering models) have been less investigated. We observe that in many diffusion models different from the independent cascade (e.g., the linear threshold and the triggering models) the objective function is not adaptive submodular under both myopic and full-adoption feedback and the standard analysis of the greedy approach does not guarantee an efficient approximation. For the general triggering model, \cite{Fujii2019} overcome this problem by exploiting submodularity ratio, but constant bounds on both the adaptivity gap and the approximation ratio are guaranteed for bipartite graphs only, and the study of other graph topologies is still open.
+
+\subsection{Myopic Feedback}\label{myo}
+
+
+
+Our results open several research directions in the context of influence maximization and in more general adaptive optimization settings. The approximation factor of the non-adaptive (resp. adaptive) greedy algorithm is 
+between our lower bound of $\frac{1}{2}\left(1-\frac{1}{e}\right) \approx 0.316$ (resp. $1-\frac{1}{\sqrt{e}}\approx 0.393$) and
+the upper bound of $\frac{e^2+1}{(e+1)^2}\approx 0.606$~\cite{Peng2019}, and the adaptivity gap is between the lower bound of $\frac{e}{e-1}\approx 1.582$~\cite{Peng2019} and our upper bound of $\frac{2e}{e-1}\approx 3.164$. The first problem left open by our result is to close these gaps. Furthermore, the techniques introduced in this thesis to relate non-adaptive policies with adaptive ones might be useful to find better bounds in several variants of the adaptive influence maximization problem, like a combination of the following settings: different feedback models (e.g., the full-adoption feedback), different diffusion models (e.g., the general triggering model \cite{Kempe2003}), and different graph classes. 
+
